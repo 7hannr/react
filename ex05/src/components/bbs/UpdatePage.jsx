@@ -14,7 +14,7 @@ const UpdatePage = () => {
   const {title, contents} = form;
 
   const callAPI = async() => {
-    const res=await axios.get(`/bbs/${bid}`);
+    const res=await axios.get(`/bbs/${bid}?isCnt=false`);
     setForm(res.data);
   }
 
@@ -22,19 +22,20 @@ const UpdatePage = () => {
     callAPI();
   }, []);
 
-  const onChangeForm=(e)=>{
-    setForm({...form,[e.target.name]:e.target.value});
+  const onChangeForm = (e) => {
+    setForm({...form, [e.target.name]:e.target.value});
   }
 
-  const onReset=()=>{
-    if(!window.confirm('변경내용을 취소하실래요?'))return;
+  const onReset = () => {
+    if(!window.confirm('변경된 내용을 취소하실래요?')) return;
     callAPI();
   }
-  const onSubmit=async(e)=>{
+
+  const onSubmit = async(e) => {
     e.preventDefault();
-    if(!window.confirm('변경된내용을 수정하실래요?')) return;
-    await axios.post('/bbs/update',form);
-    navi(-1);
+    if(!window.confirm('변경된 내용을 수정하실래요?')) return;
+    await axios.post('/bbs/update', form);
+    window.location.href=`/bbs/read/${bid}?isCnt=false`;
   }
 
   return (
@@ -49,8 +50,8 @@ const UpdatePage = () => {
               as="textarea" rows={10}/>
             <div className='text-center mt-3'>
               <Button type="submit" className='px-5 me-2' variant='light'>수정</Button>
-              <Button type="reset" onClick={onReset}
-              className='px-5' variant='light'>취소</Button>
+              <Button type="reset"
+                className='px-5' variant='light'>취소</Button>
             </div>
           </form>
         </Col>

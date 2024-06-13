@@ -1,14 +1,18 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import { Row, Col, Card, Button} from 'react-bootstrap'
 
 const ReadPage = () => {
+  const location=useLocation();
+  const search=new URLSearchParams(location.search);
+  const isCnt=search.get('isCnt');
+
   const [form, setForm] = useState('');
   const {bid} = useParams();
 
   const callAPI = async() => {
-    const res=await axios.get(`/bbs/${bid}`);
+    const res=await axios.get(`/bbs/${bid}?isCnt=${isCnt}`);
     console.log(res.data);
     setForm(res.data);
   }
