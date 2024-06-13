@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
 import { Row, Col, Card, Button} from 'react-bootstrap'
+import ReplyPage from './ReplyPage';
 
 const ReadPage = () => {
   const location=useLocation();
@@ -62,6 +63,7 @@ const ReadPage = () => {
           }
         </Col>
       </Row>
+      <ReplyPage bid={bid}/>
     </div>
   )
 }
