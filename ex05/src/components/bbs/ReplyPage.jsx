@@ -6,6 +6,7 @@ import '../Paging.css'
 import { useLocation } from 'react-router-dom';
 
 const ReplyPage = ({bid}) => {
+  const uid=sessionStorage.getItem('uid');
   const {pathname}=useLocation();
   const [contents,setContents]=useState('');
   const [list,setList]=useState([]);
@@ -47,6 +48,12 @@ const ReplyPage = ({bid}) => {
     setList(data);
   }
 
+  const onClickDelete=async(rid)=>{
+    if(!window.confirm(`${rid} 번 댓글을 삭제하실래요?`))return;
+    await axios.post(`/reply/delete/${rid}`);
+    callAPI();
+  }
+
   return (
     <div className='my-5'>
       <Row className='justify-content-center'>
@@ -77,6 +84,13 @@ const ReplyPage = ({bid}) => {
                 <span className='me-3'>{reply.uname} ({reply.uid})</span>
                 <span>{reply.fmtdate}</span>
               </Col>
+              {uid === reply.uid && 
+                <Col className='text-end mb-2'>
+                  <Button size="sm" variant='light' className='me-2'>수정</Button>
+                  <Button onClick={()=>onClickDelete(reply.rid)}
+                  size="sm" variant='light'>삭제</Button>
+                </Col>
+              }
             </Row>
                <div style={{whiteSpace:'pre-wrap',cursor:'pointer'}} 
                onClick={()=>onClickContents(reply.rid)}
