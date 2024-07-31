@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Pen+Script&display=swap');
+*{
+    font-family: "Gothic A1", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.App {
+  text-align: center;
+  margin-top: 30px;
+}
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+.bookSearch .title{
+  font-size: 12px;
+}
